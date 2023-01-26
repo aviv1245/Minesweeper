@@ -39,40 +39,25 @@ function shuffle(array) {
 
 
 function buildBoardBeginner(elBtn) {
-    var boardBeginner = buildBoard(gLevelBeginner.SIZE, gLevelBeginner.MINES)
-    console.log(boardBeginner)
-    renderBoard(boardBeginner)
+    gBoard = buildBoard(gLevelBeginner.SIZE, gLevelBeginner.MINES)
+    renderBoard(gBoard)
 }
 function buildBoardMedium(elBtn) {
-    buildBoard()
-    var board = []
-    for (var i = 0; i < gLevelMedium.SIZE; i++) {
-        board[i] = []
-        for (var j = 0; j < SIZE; j++) {
-            board[i][j] = (Math.random() > 0.5) ? MINE : ''
-        }
-    }
-    var elBtn = document.querySelector('button')
-    elBtn.innerHTML = strHTML
+    gBoard = buildBoard(gLevelMedium.SIZE, gLevelMedium.MINES)
+    renderBoard(gBoard)
 }
 
 
 function buildBoardExpert(elBtn) {
-    buildBoard()
-    var board = []
-    for (var i = 0; i < gLevelExpert.SIZE; i++) {
-        board[i] = []
-        for (var j = 0; j < gLevelExpert.SIZE; j++) {
-            board[i][j] = (gLevelBeginner.MINES < MINES) ? MINE : ''
-        }
-    }
-    var elBtn = document.querySelector('button')
-    elBtn.innerHTML = strHTML
-    return board
+    gBoard = buildBoard(gLevelExpert.SIZE, gLevelExpert.MINES)
+    renderBoard(gBoard)
 }
 
-// function countNegs(cellI, cellJ, board) {
+// function setMinesNegsCount(board) {
+
 //     var negsCount = 0
-//     for (var i = cellI - 1; i <= cellI + 1)
+//     for (var i = cellI - 1; i <= cellI + 1){
+
+//     }
 // }
 

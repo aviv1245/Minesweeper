@@ -22,55 +22,71 @@ var gLevelExpert = {
 
 }
 
-// var gCell = {
-//     minesAroundCount: 4,
-//     isShown: false,
-//     isMine: false,
-//     isMarked: true
-// }
-
-
-// gGame = {
-//     isOn: false,
-//     shownCount: 0,
-//     markedCount: 0,
-//     secsPassed: 0
-// }
-
 function onInit() {
     gBoard = buildBoard(gLevelBeginner.SIZE, gLevelBeginner.MINES)
+
     renderBoard(gBoard)
-    console.table(gBoard)
+
 
 }
 
 function buildBoard(SIZE, MINES) {
+
     var board = []
     for (var i = 0; i < SIZE; i++) {
         board[i] = []
         for (var j = 0; j < SIZE; j++) {
             board[i][j] = {
-                minesAroundCount: 4,
+                minesAroundCount: 0,
                 isShown: false,
                 isMine: false,
-                isMarked: true
+                isMarked: false
             }
         }
     }
 
+    var ceilCount = SIZE * SIZE
+
+    var generatedMinesCount = 0;
+
+    while (generatedMinesCount !== MINES) {
+        var ranNum = getRandomIntInclusive(1, ceilCount);
+        var lineIndex = (Math.ceil(ranNum / SIZE)) - 1
+        var cellIndex = ranNum - ((lineIndex) * SIZE) - 1
+
+        // console.log({ ranNum, lineIndex, cellIndex, SIZE })
+
+
+        if (!board[lineIndex][cellIndex].isMine) {
+            board[lineIndex][cellIndex].isMine = true;
+            generatedMinesCount++;
+        }
+
+
+    }
+
+
     return board
 }
+
+
 function renderBoard(board) {
     var strHTML = ''
+    console.log({ board })
 
     for (var i = 0; i < board.length; i++) {
         strHTML += '<tr>'
         for (var j = 0; j < board[0].length; j++) {
+
             var currCell = board[i][j]
-            var className = (currCell) ? 'occupied' : ''
+            // need to implement
+            var className = ''
+
+            var cellContent = currCell.isMine ? MINE_IMG : ''
+            // console.log(cellFoo)
             strHTML += `<td class="${className}"
                 data-i="${i}" data-j="${j}"
-                onclick="onCellClicked(this,${i},${j})">${currCell}</td>`
+                onclick="onCellClicked(this,${i},${j})">${cellContent}</td>`
         }
         strHTML += '</tr>'
     }
@@ -86,40 +102,4 @@ function renderBoard(board) {
 
     //     gIsOn = !gIsOn
     // }
-
-
-
-    // function createMines() {
-    //     var mines = []
-    //     for (var i = 0; i < gMinersNum; i++) {
-    //         mines.push(createMine(i))
-    //     }
-    //     return mines
-    // }
-
-    // function createMine(idx) {
-    //      MINE = {
-    //         id: idx + 1,
-
-    //     }
-    //     return MINE
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
